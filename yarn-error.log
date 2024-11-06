@@ -1,0 +1,43 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Eloy\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add --dev tpescript
+
+PATH: 
+  C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Users\Eloy\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\Eloy\AppData\Local\Programs\Python\Python311\;C:\Users\Eloy\AppData\Local\Microsoft\WindowsApps;C:\Users\Eloy\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Git;C:\MinGW\bin;C:\Users\Eloy\Desktop\Arquivos\Day.of.Infamy.v2.5.8.1;C:\Program Files\PostgreSQL\15\bin;C:\Users\Eloy\AppData\Roaming\npm
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  18.20.4
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/tpescript: Not found
+      at params.callback [as _callback] (C:\Users\Eloy\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66145:18)
+      at self.callback (C:\Users\Eloy\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140890:22)
+      at Request.emit (node:events:517:28)
+      at Request.<anonymous> (C:\Users\Eloy\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141862:10)
+      at Request.emit (node:events:517:28)
+      at IncomingMessage.<anonymous> (C:\Users\Eloy\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141784:12)
+      at Object.onceWrapper (node:events:631:28)
+      at IncomingMessage.emit (node:events:529:35)
+      at endReadableNT (node:internal/streams/readable:1400:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+npm manifest: 
+  {
+    "name": "steam-price-alerts-backend",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/EloyMuniz/steam-price-alerts-backend.git",
+    "author": "Eloy <eloymjunior00@gmail.com>",
+    "license": "MIT"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

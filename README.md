@@ -1,2 +1,2 @@
 # steam-price-alerts
-Open-source project to monitor Steam game prices and send personalized alerts, non-profit
+Open-source backend for tracking Steam game prices and sending non-profit alerts

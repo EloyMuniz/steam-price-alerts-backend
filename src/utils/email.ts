@@ -17,7 +17,6 @@ const transporter = nodemailer.createTransport({
 //Função de envio de email
 export function sendEmail(use_email: string, emailBody: string, subject: string) {
 
-
     const mailOptions = {
         from: "@gmail.com",
         to: [use_email],

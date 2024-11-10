@@ -25,7 +25,17 @@ class UserRepository implements IUserRepository {
 
         return emailData
     }
+    public async createUser(use_email: string, use_password: string, use_name: string) {
 
+        await prisma.users.create({
+            data: {
+                use_email: use_email,
+                use_password: use_password, use_name: use_name
+            }
+        })
+
+        return true
+    }
 
 }
 

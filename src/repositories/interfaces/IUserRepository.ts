@@ -8,4 +8,5 @@ export interface IUser {
 
 export interface IUserRepository {
     findById(use_uuid: string): Promise<IUser | null | undefined>
+    findbyEMail(use_email: string): Promise<IUser | null | undefined>
 }

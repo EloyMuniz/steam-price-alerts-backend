@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { IUserRepository } from "./interfaces/IUserRepository";
+import { IUser, IUserRepository } from "./interfaces/IUserRepository";
 //Instanciar o cliente Prisma
 const prisma = new PrismaClient()
 
@@ -16,7 +16,15 @@ class UserRepository implements IUserRepository {
 
 
     }
+    public async findbyEMail(use_email: string) {
 
+        const emailData = await prisma.users.findFirst({
+            select: { use_uuid: true, use_name: true, use_email: true },
+            where: { use_email: use_email }
+        })
+
+        return emailData
+    }
 
 
 }

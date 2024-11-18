@@ -7,7 +7,7 @@ const transporter = nodemailer.createTransport({
 
     secure: true,//Usar "false" para ambiente de desenvolvimento
     auth: {
-        user: "noreplyredeflex@gmail.com",
+        user: "noreplypricealerts@gmail.com",
         pass: process.env.PASSGMAIL,
     },
     tls: {
@@ -18,16 +18,16 @@ const transporter = nodemailer.createTransport({
 export function sendEmail(use_email: string, emailBody: string, subject: string) {
 
     const mailOptions = {
-        from: "noreplyredeflexnoreplyredeflex",
+        from: "noreplypricealerts@gmail.com",
         to: [use_email],
         subject: subject,
         html: emailBody,
     };
 
 
-    transporter.sendMail(mailOptions, function (error, info) {
+    transporter.sendMail(mailOptions, function (error) {
         if (error) {
-            console.error(error);
+            throw error
         } else {
             console.log("Email enviado com sucesso!")
         }

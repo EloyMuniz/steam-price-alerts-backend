@@ -5,13 +5,13 @@ const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
 
-    secure: false,//Usar "false" para ambiente de desenvolvimento
+    secure: true,//Usar "false" para ambiente de desenvolvimento
     auth: {
         user: "noreplypricealerts@gmail.com",
         pass: process.env.PASSGMAIL,
     },
     tls: {
-        rejectUnauthorized: false, //Usar "false" para ambiente de desenvolvimento
+        rejectUnauthorized: true, //Usar "false" para ambiente de desenvolvimento
     },
 });
 //Função de envio de email

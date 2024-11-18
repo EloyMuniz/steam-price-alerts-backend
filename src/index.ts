@@ -10,6 +10,9 @@ app.get(`/${apiVersion}`, function (req, res) {
 app.use(express.json());
 app.use(`/${apiVersion}`, usersRoutes);
 //Rodando servidor na porta determinada com o método listen do express
-app.listen(PORT, () =>
-    console.log(`✨ Server started on ${PORT}`)
-);
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(PORT, () => {
+        console.log(`✨ Server started on ${PORT}`);
+    });
+}
+export default app;

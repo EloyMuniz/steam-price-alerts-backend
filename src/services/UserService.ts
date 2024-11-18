@@ -41,13 +41,13 @@ class UserService {
             const passwordHash: string = bcrypt.hashSync(use_password, saltRounds);
 
             // Criar o usuário
-            const result = await UserRepository.createUser(use_email, use_name, passwordHash);
+            const result = await UserRepository.createUser(use_email, passwordHash, use_name,);
 
             if (result) {
                 // Enviar email de confirmação
                 const emailBody = `Seu cadastro foi efetuado com sucesso, ${use_name}!`;
                 const subject = "Registro do usuário";
-                await sendEmail(use_email, emailBody, subject);
+                sendEmail(use_email, emailBody, subject);
 
                 return { message: "Usuário registrado com sucesso!" };
             }

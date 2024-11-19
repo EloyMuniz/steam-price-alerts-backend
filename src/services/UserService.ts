@@ -44,15 +44,16 @@ class UserService {
             const result = await UserRepository.createUser(use_email, passwordHash, use_name,);
 
             if (result) {
-                // Enviar email de confirmação
-                const emailBody = `Seu cadastro foi efetuado com sucesso, ${use_name}!`;
-                const subject = "Registro do usuário";
-                sendEmail(use_email, emailBody, subject);
-
-                return { message: "Usuário registrado com sucesso!" };
+                try {
+                    const emailBody = `Seu cadastro foi efetuado com sucesso, ${use_name}!`;
+                    const subject = "Registro do usuário";
+                    await sendEmail(use_email, emailBody, subject);
+                } catch (emailError) {
+                    throw emailError;
+                }
             }
+            return { message: "Usuário registrado com sucesso!" };
 
-            throw new ServiceError("Erro ao registrar o usuário!", 500);
         } catch (error: any) {
             if (error instanceof ServiceError) {
                 throw error;

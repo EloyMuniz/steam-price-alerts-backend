@@ -15,8 +15,7 @@ const transporter = nodemailer.createTransport({
     },
 });
 //Função de envio de email
-export function sendEmail(use_email: string, emailBody: string, subject: string) {
-
+export function sendEmail(use_email: string, emailBody: string, subject: string): Promise<void> {
     const mailOptions = {
         from: "noreplypricealerts@gmail.com",
         to: [use_email],
@@ -24,13 +23,13 @@ export function sendEmail(use_email: string, emailBody: string, subject: string)
         html: emailBody,
     };
 
-
-    transporter.sendMail(mailOptions, function (error) {
-        if (error) {
-            throw error
-        } else {
-            console.log("Email enviado com sucesso!")
-        }
+    return new Promise((resolve, reject) => {
+        transporter.sendMail(mailOptions, function (error) {
+            if (error) {
+                return reject(error); 
+            }
+            console.log("Email enviado com sucesso!");
+            resolve(); 
+        });
     });
 }
-

@@ -3,7 +3,8 @@ import UserRepository from "../repositories/UserRepository";
 import { isValidEmail } from "../utils/regex";
 import bcrypt from "bcrypt";
 import { sendEmail } from "../utils/email";
-
+import jwt from "jsonwebtoken"
+import dotenv from 'dotenv';
 // Classe de erro personalizada
 class ServiceError extends Error {
     public statusCode: number;
@@ -60,6 +61,38 @@ class UserService {
             }
             throw new ServiceError("Erro interno no servidor!", 500);
         }
+    }
+    public async userLogin(use_email: string, use_password: string): Promise<null | undefined | object> {
+        try {
+
+            const existingEmail = await UserRepository.findbyEMail(use_email)
+            if (!existingEmail) {
+                return { sucess: false, message: "Usuário não encontrado!" }
+            }
+
+            const password = existingEmail?.use_password
+            const checkPassword: boolean = password ? bcrypt.compareSync(use_password, password) : false;
+            if (!checkPassword) {
+                return { sucess: false, message: "Senha inválida!" }
+            }
+
+            const secret = process.env.USERTOKENSECRET as string;
+            if (!secret) throw new Error('A variável de ambiente USERTOKENSECRET não está definida.');
+
+            const token: string = jwt.sign(
+                { id: existingEmail.use_uuid },
+                secret,
+
+            );
+            return {
+                message: "Login efetuado com sucesso!",
+                acesso: token, use_name: existingEmail.use_name
+            }
+
+        } catch (error) {
+            throw error
+        }
+
     }
 }
 

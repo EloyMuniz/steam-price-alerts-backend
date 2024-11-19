@@ -32,11 +32,9 @@ describe('Email inválido', () => {
         expect(response.status).toBe(401);
         expect(response.body.message).toBe('Email inválido!');
 
-
     })
 
 })
-
 describe('Erro de envio do email', () => {
     it('Retorna status 401', async () => {
 

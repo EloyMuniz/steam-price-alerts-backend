@@ -1,3 +1,4 @@
+import { responseEncoding } from "axios";
 import UserService from "../services/UserService";
 import { Request, Response } from "express";
 
@@ -6,7 +7,7 @@ class UserController {
         try {
             const { use_email, use_password, use_name, use_confirm_password } = req.body;
 
-             await UserService.userRegister(
+            await UserService.userRegister(
                 use_email,
                 use_name,
                 use_password,
@@ -20,6 +21,18 @@ class UserController {
             }
             return res.status(500).json({ message: "Erro interno no servidor!" });
         }
+    }
+    public async userLogin(req: Request, res: Response): Promise<any> {
+        try {
+            const { use_email, use_password } = req.body
+            const result = await UserService.userLogin(use_email, use_password)
+
+            return res.status(200).json(result)
+
+        } catch {
+            return res.status(500).json({ message: "Erro interno do servidor!" })
+        }
+
     }
 }
 

@@ -19,7 +19,7 @@ class UserRepository implements IUserRepository {
     public async findbyEMail(use_email: string) {
 
         const emailData = await prisma.users.findFirst({
-            select: { use_uuid: true, use_name: true, use_email: true },
+            select: { use_uuid: true, use_name: true, use_email: true, use_password: true },
             where: { use_email: use_email }
         })
 
@@ -36,6 +36,7 @@ class UserRepository implements IUserRepository {
 
         return true
     }
+
 
 }
 

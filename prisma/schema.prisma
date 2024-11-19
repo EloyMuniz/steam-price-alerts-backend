@@ -15,11 +15,35 @@ datasource db {
 
 // Modelo de usuários, armazena informações dos usuários da aplicação
 model users {
-  use_uuid       String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  use_name       String?  @db.VarChar(100)
-  use_email      String?  @db.VarChar(50)
-  use_password   String?  @db.VarChar(255)
-  use_token      String?  @db.VarChar(255)
-  use_created_at DateTime @default(now()) @db.Timestamp(6)
-  use_updated_at DateTime @default(now()) @db.Timestamp(6)
+  use_uuid       String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  use_name       String?         @db.VarChar(100)
+  use_email      String?         @db.VarChar(50)
+  use_password   String?         @db.VarChar(255)
+  use_token      String?         @db.VarChar(255)
+  use_created_at DateTime        @default(now()) @db.Timestamp(6)
+  use_updated_at DateTime        @default(now()) @db.Timestamp(6)
+  game_settings  game_settings[]
+}
+
+//Armazena os jogos e seus respectivos preços provenientes da api pública da Steam
+model steam_games {
+  steam_games_uuid       String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  game_name              String?         @db.VarChar(255)
+  game_id                String?         @db.VarChar(50)
+  game_price             String?         @db.VarChar(100)
+  steam_games_created_at DateTime        @default(now()) @db.Timestamp(6)
+  steam_games_updated_at DateTime        @default(now()) @db.Timestamp(6)
+  game_settings          game_settings[]
+}
+
+//Armazena os valores dos jogos que o usuário escolheu
+model game_settings {
+  game_settings_uuid       String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  use_uuid                 String?      @db.Uuid
+  game_set_value           Float?
+  steam_games_uuid         String?      @db.Uuid
+  game_settings_created_at DateTime     @default(now()) @db.Timestamp(6)
+  game_settings_updated_at DateTime     @default(now()) @db.Timestamp(6)
+  users                    users?       @relation(fields: [use_uuid], references: [use_uuid])
+  steam_games              steam_games? @relation(fields: [steam_games_uuid], references: [steam_games_uuid])
 }

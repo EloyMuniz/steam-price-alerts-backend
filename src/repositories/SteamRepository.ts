@@ -45,7 +45,7 @@ class SteamRepository implements ISteamRepository {
             throw error
         }
     }
-    //Salva os valores dos jogos através da chave primária
+    //Salva os valores dos jogos através da chave primária.Ps:O próprio usuário alimenta a base de dados
     public async steamSavePrice(game_price: number, game_discount_price: number, steam_games_uuid: string): Promise<boolean> {
         try {
 
@@ -61,7 +61,29 @@ class SteamRepository implements ISteamRepository {
             throw error
         }
     }
+    public async steamSaveUserPrices(use_uuid: string, game_set_value: number, steam_games_uuid: string): Promise<boolean> {
+        try {
 
+            const result = await prisma.game_settings.findFirst({ where: { use_uuid: use_uuid, steam_games_uuid: steam_games_uuid } })
+            if (result) {
+                await prisma.game_settings.updateMany({ data: { game_set_value: game_set_value }, where: { use_uuid: use_uuid, steam_games_uuid: steam_games_uuid } })
+                return true
+            }
+
+            await prisma.game_settings.create({
+                data: {
+                    use_uuid: use_uuid,
+                    steam_games_uuid: steam_games_uuid, game_set_value: game_set_value
+                }
+            })
+
+            return true
+
+        } catch (error) {
+            console.error("Erro no repositório:", error);
+            throw error
+        }
+    }
 
 
 

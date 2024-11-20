@@ -4,5 +4,5 @@ import SteamController from "../controllers/SteamController"
 
 const steamRouter = Router()
 steamRouter.get('/steam-game-save-info', checkToken, SteamController.steamSaveGames)
-steamRouter.post('/steam-info-id', checkToken, SteamController.steamFindGame)
+steamRouter.post('/steam-info-id/:use_token', checkToken, SteamController.steamFindGame)
 export default steamRouter

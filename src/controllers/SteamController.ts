@@ -23,7 +23,8 @@ class SteamController {
     public async steamFindGame(req: Request, res: Response): Promise<any> {
         try {
             const { game_name, game_price } = req.body
-            const info = await SteamService.steamFindGame(game_name, game_price)
+            const { use_token } = req.params
+            const info = await SteamService.steamFindGame(game_name, game_price, use_token)
 
             if (info) {
                 return res.status(200).json({ data: info })

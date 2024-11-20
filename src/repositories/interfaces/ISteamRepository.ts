@@ -1,6 +1,8 @@
-
-
+export interface steamNameID {
+    game_name: string;
+    game_id: number;
+}
 export default interface ISteamRepository {
-    steamSaveGames(game_name: string, game_id: string): Promise<void>
+    steamSaveGames(arrayGames: steamNameID[]): Promise<boolean>
 
 }

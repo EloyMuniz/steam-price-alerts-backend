@@ -27,6 +27,25 @@ class SteamService {
         }
 
     }
+    public async steamFindGame(game_name: string, game_price: number): Promise<any> {
+        try {
+
+            const data = await SteamRepository.steamFindGame(game_name)
+
+            const infoPrice = await axios.get(`https://store.steampowered.com/api/appdetails?appids=${data?.game_id}&cc=br&l=portuguese`)
+
+            const gameKey = Object.keys(infoPrice.data)[0];
+
+           
+            return infoPrice.data[gameKey].data["price_overview"]
+
+
+        } catch (error) { }
+    }
 }
 
 export default new SteamService()
+
+
+
+//https://store.steampowered.com/api/appdetails?appids=3256820&cc=br&l=portuguese

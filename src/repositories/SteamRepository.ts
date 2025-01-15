@@ -3,12 +3,12 @@ import { PrismaClient } from "@prisma/client";
 import { steamNameID } from "./interfaces/ISteamRepository";
 //Instanciar o cliente Prisma
 const prisma = new PrismaClient()
-type SteamGame = {
-    steam_games_uuid: string | null
+export type SteamGame = {
+    steam_games_uuid: string | null;
     game_price: number | null;
     game_discount_price: number | null;
-    game_id: number | null
-};
+    game_id: number | null;
+} | null;
 
 class SteamRepository implements ISteamRepository {
     //Salva os jogos da steam na tabela steam_games
@@ -61,6 +61,7 @@ class SteamRepository implements ISteamRepository {
             throw error
         }
     }
+    //Essa função salva os valores dos jogos que o usuário insere na interface.
     public async steamSaveUserPrices(use_uuid: string, game_set_value: number, steam_games_uuid: string): Promise<boolean> {
         try {
 

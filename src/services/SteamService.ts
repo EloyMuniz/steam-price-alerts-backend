@@ -1,6 +1,9 @@
 import axios from "axios";
 import SteamRepository from "../repositories/SteamRepository";
 import extractUserIdFromToken from "../utils/extractUserID";
+import externalAPISteam from "./ExternalAPISteamService";
+const externalValue = new externalAPISteam()
+
 class SteamService {
     public async saveInfoGames() {
         try {
@@ -27,7 +30,7 @@ class SteamService {
         }
 
     }
-    public async steamFindGame(game_name: string, game_price: number, use_token: string): Promise<any> {
+    public async steamFindGameandSavePrice(game_name: string, game_price: number, use_token: string): Promise<any> {
         try {
             const secret = process.env.USERTOKENSECRET;
             if (!secret) {
@@ -39,24 +42,23 @@ class SteamService {
                 throw Error
             }
 
-            const data = await SteamRepository.steamFindGame(game_name)
+            let data = await SteamRepository.steamFindGame(game_name)
             //Buscar as informações de preço e preço com desconto de um determinado jogo a partir de seu 'game_id'
-            const infoPrice = await axios.get(`https://store.steampowered.com/api/appdetails?appids=${data?.game_id}&cc=br&l=portuguese`)
 
-            const gameKey = Object.keys(infoPrice.data)[0];
+            const infoPrice: { [key: string]: any } = await externalValue.appdetailsID(data)
+
+            const gameKey: string = Object.keys(infoPrice)[0];
             //Alguns jogos podem não conter a informação de valores
-            if (!infoPrice.data[gameKey].data["price_overview"]) {
+            if (!infoPrice[gameKey].data["price_overview"]) {
                 console.error("Não há informação de preços para esse jogo!")
                 throw Error
             }
             if (data?.steam_games_uuid) {
-                await SteamRepository.steamSavePrice(infoPrice.data[gameKey].data["price_overview"].initial, infoPrice.data[gameKey].data["price_overview"].final, data?.steam_games_uuid)
+                await SteamRepository.steamSavePrice(infoPrice[gameKey].data["price_overview"].initial, infoPrice[gameKey].data["price_overview"].final, data?.steam_games_uuid)
                 await SteamRepository.steamSaveUserPrices(user_id, game_price, data?.steam_games_uuid)
             }
 
-
-            return infoPrice.data[gameKey].data["price_overview"]
-
+            return true
 
         } catch (error) {
             console.error("Erro no serviço:", error);

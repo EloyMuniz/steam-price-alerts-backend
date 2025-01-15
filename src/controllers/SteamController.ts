@@ -20,14 +20,14 @@ class SteamController {
 
     }
 
-    public async steamFindGame(req: Request, res: Response): Promise<any> {
+    public async steamFindGameandSavePrice(req: Request, res: Response): Promise<any> {
         try {
             const { game_name, game_price } = req.body
             const { use_token } = req.params
-            const info = await SteamService.steamFindGame(game_name, game_price, use_token)
+            const info = await SteamService.steamFindGameandSavePrice(game_name, game_price, use_token)
 
             if (info) {
-                return res.status(200).json({ data: info })
+                return res.status(200).json({ message: "As informações foram salvas com sucesso!" })
             }
 
         } catch (error) {

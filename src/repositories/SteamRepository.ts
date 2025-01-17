@@ -85,7 +85,26 @@ class SteamRepository implements ISteamRepository {
             throw error
         }
     }
+    //Essa função retorna todos os jogos que tiveram os valores mínimos definidos na tabela game_settings
+    public async steamGameSetValues(): Promise<object[]> {
+        try {
+            const result = await prisma.game_settings.findMany({
+                select:
+                {
+                    game_set_value: true,
+                    steam_games: { select: { game_name: true, game_id: true } },
+                    users: { select: { use_email: true, use_name: true } }
+                }
+            })
 
+            return result
+
+        } catch (error) {
+            console.error("Erro no repositório:", error);
+            throw error
+        }
+
+    }
 
 
 }

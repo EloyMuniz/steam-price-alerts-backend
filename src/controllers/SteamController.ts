@@ -38,6 +38,24 @@ class SteamController {
 
 
     }
+
+    public async teste(req: Request, res: Response): Promise<any> {
+        try {
+
+            const info = await SteamService.steamGamesSend()
+
+            if (info) {
+                return res.status(200).json({ message: "Os emails foram enviados com sucesso!" })
+            }
+
+        } catch (error) {
+
+            return res.status(500).json(`Erro no servidor:${error}`)
+
+        }
+
+
+    }
 }
 
 

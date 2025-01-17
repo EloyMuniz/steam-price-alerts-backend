@@ -9,4 +9,5 @@ export default interface ISteamRepository {
     steamFindGame(game_name: string): Promise<object | null>
     steamSavePrice(game_price: number, game_discount_price: number, steam_games_uuid: string): Promise<boolean>
     steamSaveUserPrices(use_uuid: string, game_set_value: number, steam_games_uuid: string): Promise<boolean>
+    steamGameSetValues(): Promise<object[]>
 }

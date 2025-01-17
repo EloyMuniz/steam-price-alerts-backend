@@ -1,13 +1,13 @@
 import cron from "node-cron"
-
+import SteamService from "../services/SteamService";
 class analyzeAndNotify {
     public sendEmail() {
-        // Agende a função para ser executada todo dia as 17:00
+        // Agendar a função para ser executada todo dia as 17:00
         cron.schedule("00 17 * * *", async () => {
             try {
-                
+                await SteamService.steamGamesSend()
             } catch (error) {
-                console.error("Erro durante a verificação de alertas:", error);
+                console.error("Erro ao enviar mensagem:", error);
             }
         },
             {
@@ -19,4 +19,3 @@ class analyzeAndNotify {
 
 export default new analyzeAndNotify()
 
-// noreplyflowbittech@gmail.com

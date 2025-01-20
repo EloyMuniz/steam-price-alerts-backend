@@ -3,4 +3,3 @@ Este projeto é uma aplicação de monitoramento de preços de jogos na Steam. E
 
 This project is an application that monitors game prices on Steam. It sends personalized alerts via email when a game reaches the price set by the user. It's an open-source, non-profit solution aimed at gamers looking for deals.
 
-*Em desenvolvimento*
